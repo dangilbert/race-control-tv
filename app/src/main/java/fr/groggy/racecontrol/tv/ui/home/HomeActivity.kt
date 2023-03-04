@@ -72,7 +72,7 @@ class HomeActivity : FragmentActivity(R.layout.activity_home) {
 
                 if (supportFragmentManager.findFragmentByTag(TAG) !is HomeFragment) {
                     supportFragmentManager.commit {
-                        replace(R.id.fragment_container, HomeFragment())
+                        replace(R.id.fragment_container, HomeFragment(), TAG)
                     }
                 }
             }
