@@ -17,6 +17,8 @@ import fr.groggy.racecontrol.tv.f1tv.Archive
 import fr.groggy.racecontrol.tv.ui.season.browse.SeasonBrowseActivity
 import fr.groggy.racecontrol.tv.ui.settings.SettingsActivity
 import fr.groggy.racecontrol.tv.utils.coroutines.schedule
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.threeten.bp.Duration
 import org.threeten.bp.Year
 import javax.inject.Inject
@@ -34,6 +36,8 @@ class HomeActivity : FragmentActivity(R.layout.activity_home) {
     @Inject internal lateinit var seasonService: SeasonService
     private var teaserImage: ImageView? = null
 
+    private var syncJob: Job? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -50,6 +54,7 @@ class HomeActivity : FragmentActivity(R.layout.activity_home) {
         findViewById<View>(R.id.settings).setOnClickListener {
             startActivity(SettingsActivity.intent(this))
         }
+
     }
 
     override fun onStart() {
@@ -58,7 +63,7 @@ class HomeActivity : FragmentActivity(R.layout.activity_home) {
 
         teaserImage?.requestFocus()
 
-        lifecycleScope.launchWhenStarted {
+        syncJob = lifecycleScope.launch {
             schedule(Duration.ofMinutes(1)) {
                 Log.d("Fetching new data", "Lifecycle state is ${lifecycle.currentState}")
                 try {
@@ -77,5 +82,11 @@ class HomeActivity : FragmentActivity(R.layout.activity_home) {
                 }
             }
         }
+    }
+
+    override fun onPause() {
+        syncJob?.cancel()
+        syncJob = null
+        super.onPause()
     }
 }
