@@ -119,7 +119,9 @@ class HomeFragment : RowsSupportFragment(), OnItemViewClickedListener {
             val listRowAdapter = existingListRow.adapter as ArrayObjectAdapter
             existingListRow to listRowAdapter
         }
-        listRowAdapter.setItems(sessions, Session.diffCallback)
+        if (existingListRow == null || !hasMatchingSessions(existingListRow, listRow)) {
+            listRowAdapter.setItems(sessions, Session.diffCallback)
+        }
         return listRow
     }
 

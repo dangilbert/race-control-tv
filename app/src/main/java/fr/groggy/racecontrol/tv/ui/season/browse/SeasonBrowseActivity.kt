@@ -13,6 +13,8 @@ import fr.groggy.racecontrol.tv.R
 import fr.groggy.racecontrol.tv.core.season.SeasonService
 import fr.groggy.racecontrol.tv.f1tv.Archive
 import fr.groggy.racecontrol.tv.utils.coroutines.schedule
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.threeten.bp.Duration
 import org.threeten.bp.Year
 import javax.inject.Inject
@@ -38,6 +40,8 @@ class SeasonBrowseActivity : FragmentActivity(R.layout.activity_season_browse) {
 
     @Inject internal lateinit var seasonService: SeasonService
 
+    private var syncJob: Job? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -50,10 +54,10 @@ class SeasonBrowseActivity : FragmentActivity(R.layout.activity_season_browse) {
 
     override fun onStart() {
         super.onStart()
-        lifecycleScope.launchWhenStarted {
+        syncJob = lifecycleScope.launch {
             val archive = SeasonBrowseFragment.findArchive(this@SeasonBrowseActivity)
             // Only refresh the season data if it is the current year, as older content should not be changing
-            if (archive.year == Year.now().value) {
+            if (archive.year != Year.now().value) {
                 loadSeasonContent()
             } else {
                 schedule(Duration.ofMinutes(1)) {
@@ -61,6 +65,12 @@ class SeasonBrowseActivity : FragmentActivity(R.layout.activity_season_browse) {
                 }
             }
         }
+    }
+
+    override fun onStop() {
+        syncJob?.cancel()
+        syncJob = null
+        super.onStop()
     }
 
     private suspend fun loadSeasonContent() {
