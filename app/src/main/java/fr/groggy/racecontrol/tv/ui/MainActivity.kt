@@ -6,17 +6,17 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import fr.groggy.racecontrol.tv.R
 import fr.groggy.racecontrol.tv.core.credentials.CredentialsService
+import fr.groggy.racecontrol.tv.ui.base.RaceControlActivity
 import fr.groggy.racecontrol.tv.ui.home.HomeActivity
 import fr.groggy.racecontrol.tv.ui.signin.SignInActivity
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : FragmentActivity() {
+class MainActivity : RaceControlActivity(R.layout.activity_main) {
     @Inject internal lateinit var credentialsService: CredentialsService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         startHomeActivity()
     }
 

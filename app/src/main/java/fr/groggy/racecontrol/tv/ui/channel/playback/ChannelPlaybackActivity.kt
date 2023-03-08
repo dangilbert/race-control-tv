@@ -15,6 +15,7 @@ import fr.groggy.racecontrol.tv.core.ViewingService
 import fr.groggy.racecontrol.tv.core.settings.Settings
 import fr.groggy.racecontrol.tv.core.settings.SettingsRepository
 import fr.groggy.racecontrol.tv.f1tv.F1TvViewing
+import fr.groggy.racecontrol.tv.ui.base.RaceControlActivity
 import fr.groggy.racecontrol.tv.ui.player.ChannelSelectionDialog
 import fr.groggy.racecontrol.tv.ui.session.browse.Channel
 import fr.groggy.racecontrol.tv.ui.signin.SignInActivity
@@ -22,7 +23,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ChannelPlaybackActivity : FragmentActivity(R.layout.activity_channel_playback),
+class ChannelPlaybackActivity : RaceControlActivity(R.layout.activity_channel_playback),
     ChannelSelectionDialog.ChannelManagerListener {
     @Inject internal lateinit var viewingService: ViewingService
     @Inject internal lateinit var settingsRepository: SettingsRepository

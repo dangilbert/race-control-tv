@@ -14,15 +14,18 @@ import dagger.hilt.android.AndroidEntryPoint
 import fr.groggy.racecontrol.tv.R
 import fr.groggy.racecontrol.tv.core.season.SeasonService
 import fr.groggy.racecontrol.tv.f1tv.Archive
+import fr.groggy.racecontrol.tv.ui.base.RaceControlActivity
 import fr.groggy.racecontrol.tv.ui.season.browse.SeasonBrowseActivity
 import fr.groggy.racecontrol.tv.ui.settings.SettingsActivity
 import fr.groggy.racecontrol.tv.utils.coroutines.schedule
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import org.threeten.bp.Duration
 import org.threeten.bp.Year
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
-class HomeActivity : FragmentActivity(R.layout.activity_home) {
+class HomeActivity : RaceControlActivity(R.layout.activity_home) {
     companion object {
         private val TAG = HomeActivity::class.simpleName
 

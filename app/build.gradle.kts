@@ -107,6 +107,9 @@ dependencies {
 
     implementation("com.google.android.material:material:1.4.0")
     implementation("com.jakewharton.threetenabp:threetenabp:1.4.0")
+
+    implementation("io.github.inflationx:calligraphy3:3.1.1")
+    implementation("io.github.inflationx:viewpump:2.0.3")
 }
 
 kapt {

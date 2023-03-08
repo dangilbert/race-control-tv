@@ -12,12 +12,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import fr.groggy.racecontrol.tv.R
 import fr.groggy.racecontrol.tv.core.season.SeasonService
 import fr.groggy.racecontrol.tv.f1tv.Archive
+import fr.groggy.racecontrol.tv.ui.base.RaceControlActivity
 import fr.groggy.racecontrol.tv.utils.coroutines.schedule
 import org.threeten.bp.Duration
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SeasonBrowseActivity : FragmentActivity(R.layout.activity_season_browse) {
+class SeasonBrowseActivity : RaceControlActivity(R.layout.activity_season_browse) {
 
     companion object {
         private val TAG = SeasonBrowseActivity::class.simpleName

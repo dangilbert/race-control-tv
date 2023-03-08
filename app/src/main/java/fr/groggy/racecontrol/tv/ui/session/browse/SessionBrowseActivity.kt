@@ -9,10 +9,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import fr.groggy.racecontrol.tv.R
+import fr.groggy.racecontrol.tv.ui.base.RaceControlActivity
 import fr.groggy.racecontrol.tv.ui.channel.playback.ChannelPlaybackActivity
 
 @AndroidEntryPoint
-class SessionBrowseActivity : FragmentActivity() {
+class SessionBrowseActivity : RaceControlActivity(R.layout.activity_session_browse) {
     companion object {
         fun intent(
             context: Context,
@@ -28,7 +29,6 @@ class SessionBrowseActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_session_browse)
 
         val contentId = SessionGridFragment.findContentId(this)
             ?: return finish()
